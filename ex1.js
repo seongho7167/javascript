@@ -22,5 +22,5 @@ if(true){
     var txt6 = "kim";
     console.log(txt6);
 }
-// console.log(txt5);
+console.log(txt5);
 console.log(txt6);
