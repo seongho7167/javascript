@@ -1,3 +1,17 @@
+/**
+	사용방법
+	인스턴스 객체 생성에 필요한 매개변수(파라미터,아규먼트): target, config
+	target(String): 인스턴스 객체가 생성될 대상 태그의 아이디 또는 클래스명
+	config(Object): 인스턴스 객체 생성에 필수 또는 옵션 정보 객체 
+	config 객체 필수 속성(properties): now_page, total_cnt
+	config 객체 옵션 속성(properties): page_size, block_size
+	
+	코드 작성 방법: 
+	const test_pagination = new PaginationApp('paginationWrapper', {
+		now_page: 1,
+		total_cnt: 1000,
+	});
+*/
 
 export default class PaginationApp {
 	/**
@@ -25,12 +39,11 @@ export default class PaginationApp {
 	
 	constructor(target, config) {
 		
-		if(this.#isEmpty(config['query_function']) && this.#isEmpty(config['total_cnt'])){
+		if(this.#isEmpty(config['total_cnt'])){
 			console.error('config error: total count is undefined');
 		}else {
-			this.query_function = config['query_function']; // 페이징을 생성하기 위한 데이터 수량 정보를 불러오는 함수
 			
-			this.#target = target; // 페이징을 생성할 타겟 태그
+			this.#target = this.#isEmpty(target) ? 'body' : target; // 페이징을 생성할 타겟 태그
 			this.#search_column = config?.search_column === undefined ? '' : config.search_column; // 검색 컬럼 조건
 			this.#search_data = config?.search_data === undefined ? '' : config.search_data; // 검색어
 			this.#st_date = config?.st_date === undefined ? '' : config.st_date; // 기간조회 시작일
@@ -39,7 +52,7 @@ export default class PaginationApp {
 			this.#total_cnt = config?.total_cnt === undefined ? 0 : config.total_cnt; // 현재 페이지
 			this.#page_size = config?.page_size === undefined ? 20 : config.page_size; // 페이지당 row cnt
 			this.#block_size = config?.block_size === undefined ? 10 : config.block_size; // 화면에 보여줄 페이지 링크 수
-			this.query_function = config.query_function;
+
 			this.#id_count = document.querySelectorAll('.my_pagination').length; // 한 페이지에 여러 페이징 생성시 필요한 넘버링
 			this.#pagination_id = `P${this.#millisecond('sss')}${this.#id_count}`; // 생성된 페이징 객체 아이디
 			this.#create_body(); // 페이징 바디 생성 메서드
@@ -64,6 +77,7 @@ export default class PaginationApp {
 		body_tag.setAttribute('pagination_id',this.#pagination_id);
 		
 		pagination_body.appendChild(body_tag);
+		
 		document.querySelector(this.#target).appendChild(pagination_body);
 		
 	}
@@ -80,13 +94,9 @@ export default class PaginationApp {
 		let fragmentPage = '';
 		
 		if(this.#pagination.childNodes.length > 0){
-			this.#pagination.removeChild(document.querySelector(".allpre"));
-			this.#pagination.removeChild(document.querySelector(".preli"));
-			document.querySelectorAll(".pitem").forEach((item)=>{
-				this.#pagination.removeChild(item);
-			});
-			this.#pagination.removeChild(document.querySelector(".endli"));
-			this.#pagination.removeChild(document.querySelector(".allendli"));
+			while(this.#pagination.firstChild){
+				this.#pagination.firstChild.remove();
+			}
 		}
 		
 		
@@ -169,12 +179,9 @@ export default class PaginationApp {
 	
 	u_parse = (data) => {
 		this.#now_page = data?.now_page === undefined ? this.#now_page : data.now_page;
-		this.#page_size = data?.page_size === undefined ? this.#page_size : data.page_size;
-		this.#search_column = data?.search_column === undefined ? '' : data.search_column;
-		this.#search_data = data?.search_data === undefined ? '' : data.search_data;
-		this.#st_date = data?.st_date === undefined ? '' : data.st_date;
-		this.#end_date = data?.end_date === undefined ? '' : data.end_date;
-		
+		this.#total_cnt = data?.total_cnt === undefined ? this.#total_cnt : data.total_cnt;
+		this.#page_size = data?.page_size === undefined ? 20 : data.page_size; // 페이지당 row cnt
+		this.#block_size = data?.block_size === undefined ? 10 : data.block_size; // 화면에 보여줄 페이지 링크 수
 		this.#draw_pagination();
 	}
 	
