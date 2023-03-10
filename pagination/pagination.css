@@ -1,0 +1,51 @@
+
+
+/* 페이지네이션 css */
+
+.my_pagination {
+	margin: 0 auto;
+	padding: 0;
+	height: 34px;
+	width: 100%;
+	min-width: 450px;
+	max-width: 570px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.my_pagination > li {
+	list-style: none;
+	flex-basis: calc(100% / 14);
+	/* cursor: pointer; */
+}
+.my_pagination > li > span {
+	text-decoration: none;
+	color: #4d4d4d;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 2px 12px;
+	line-height: 30px;
+	display: inline-block;
+}
+.pitem {
+	text-align: center;
+}
+.my_pagination > li > span:hover {
+	text-decoration: underline;
+}
+.my_pagination > li > span.active {
+	background-color: #4d4d4d;
+	color: #fff;
+	font-weight: bolder;
+}
+#allprev > .xi-angle-left {
+	display: inline-block;
+	width: 30%;
+}
+#allnext > .xi-angle-right {
+	display: inline-block;
+	width: 30%;
+}
+#allprev:hover i, #prev:hover i, #allnext:hover i, #next:hover i {
+	font-weight: bolder;
+}

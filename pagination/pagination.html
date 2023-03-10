@@ -1,0 +1,26 @@
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+	<script src="./pagination.js" type="module"></script>
+	<link href="./pagination.css" rel="stylesheet">
+</head>
+<body>
+	<div class="input_wrapper">	
+		<label for="page_size_input">page_size: </label><input type="text" id="page_size_input" name="page_size_input" />
+	</div>
+	
+	<div class="input_wrapper">	
+		<label for="block_size_input">block_size: </label><input type="text" id="block_size_input" name="block_size_input" />
+	</div>
+	<div class="input_wrapper">	
+		<label for="total_page_input">total_page: </label><input type="text" id="total_page_input" name="total_page_input" disabled />
+	</div>
+	<div class="input_wrapper">	
+		<label for="total_cnt_input">total_cnt: </label><input type="text" id="total_cnt_input" name="total_cnt_input" />
+	</div>
+	<div class="input_wrapper">
+		<label for="now_page_input">now_page: </label><input type="text" id="now_page_input" name="now_page_input" />
+	</div>
+	
+	<button id="create_pagination_btn">create pagination</button>
+</body>
