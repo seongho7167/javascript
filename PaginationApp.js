@@ -37,12 +37,12 @@ export default class PaginationApp {
 	#st_date;
 	#end_date;
 	
+	
 	constructor(target, config) {
 		
 		if(this.#isEmpty(config['total_cnt'])){
 			console.error('config error: total count is undefined');
 		}else {
-			
 			this.#target = this.#isEmpty(target) ? 'body' : target; // 페이징을 생성할 타겟 태그
 			this.#search_column = config?.search_column === undefined ? '' : config.search_column; // 검색 컬럼 조건
 			this.#search_data = config?.search_data === undefined ? '' : config.search_data; // 검색어
@@ -77,7 +77,6 @@ export default class PaginationApp {
 		body_tag.setAttribute('pagination_id',this.#pagination_id);
 		
 		pagination_body.appendChild(body_tag);
-		
 		document.querySelector(this.#target).appendChild(pagination_body);
 		
 	}
